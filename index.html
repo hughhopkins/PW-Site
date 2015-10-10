@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Basic Page Needs -->
+  <title>PW</title>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+  <meta name="description" content="PW helps you create complex passwords that you can easily access in seconds on any device, anywhere. So you can forget and get on with you life." />
+  <meta name="author" content="PW">
+
+  <meta name="twitter:site" content="@hughhopkins">
+
+  <meta property="twitter:title" content="Forget your passwords" />
+  <meta property="og:title" content="Forget your passwords" />
+  <meta property="og:description" content="We help you create complex passwords that you can easily access in seconds on any device, anywhere. So you can forget and get on with you life." />
+  <meta property="og:site_name" content="PW" />
+
+  <!-- Mobile Specific Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/skeleton.css">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="images/favicon.png">
+
+  <!-- iOS icons -->
+  <link rel="apple-touch-icon" href="images/touch-icon-iphone.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="images/touch-icon-ipad.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="images/touch-icon-iphone-retina.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="images/touch-icon-ipad-retina.png">
+
+  <!-- Analytics -->
+  <script>
+    !function(g,s,q,r,d){r=g[r]=g[r]||function(){(r.q=r.q||[]).push(
+    arguments)};d=s.createElement(q);q=s.getElementsByTagName(q)[0];
+    d.src='//d1l6p2sc9645hc.cloudfront.net/tracker.js';q.parentNode.
+    insertBefore(d,q)}(window,document,'script','_gs');
+
+    _gs('GSN-900998-X', false); // PW
+    _gs('GSN-132154-C', false); // allTrafic
+    _gs('GSN-557881-Z', false); // PW - Bots
+    _gs('track', function() {
+      _gs('identify', _gs('get', 'clientID'));
+    });
+  </script>
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-67192015-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</head>
+
+<body id="dropbox">
+  <div class="container">
+    <div class="row">
+      <div class="one-half column" style="margin-top: 25%">
+        <h4>PW</h4>
+        <p><i>Forget your passwords.</i></p>
+        <input type="text" id="srv" placeholder="Service" class="big">
+        <input type="password" id="pw" placeholder="Password" class="big">
+        <h4><p><span id="password"></span></p></h4>
+      </div>
+    </div>
+    <footer class="footer">
+      <p><a href="/about.html">About</a>  <a href="https://github.com/hughhopkins/PW-Site">Open Source</a></p>
+      <p><a href="https://itunes.apple.com/app/apple-store/id981716752?pt=117760826&ct=website-pwapp.io&mt=8" target="_blank"><img src="images/Download_on_the_App_Store_Badge_US-UK_135x40.svg"/></a><!-- & <a href="https://appsto.re/gb/q88G6.i" target="_blank"><img src="images/Download_on_the_Mac_App_Store_Badge_US-UK_165x40.svg"/></a></p>-->
+    </footer>
+  </div>
+  
+
+  <script>
+    var node = typeof require !== 'undefined';
+
+    // use native node crypto if available, else https://github.com/jbt/js-crypto/blob/master/sha1-min.js
+    var sha1 = node ?
+      function(d) { return require('crypto').createHash('sha1').update(d).digest('hex'); } :
+      function(d){for(var j=0,a=0,c=[],k=[1732584193,4023233417,2562383102,271733878,3285377520],e,g,h,l,f,i=unescape(encodeURI(d)),b=i.length;a<=b;)c[a>>2]|=(i.charCodeAt(a)||128)<<8*(3-a++%4);for(c[d=(b>>6<<4)+15]=b<<3;j<=d;j+=16){b=k;for(a=0;80>a;b=[[(f=((i=b[0])<<5|i>>>27)+b[4]+(c[a]=16>a?~~c[j+a]:f<<1|f>>>31)+1518500249)+((e=b[1])&(g=b[2])|~e&(h=b[3])),l=f+(e^g^h)+341275144,f+(e&g|e&h|g&h)+882459459,l+1535694389][0|a++/20]|0,i,e<<30|e>>>2,g,h])f=c[a-3]^c[a-8]^c[a-14]^c[a-16];for(a=5;a;)k[--a]=k[a]+b[a]|0}for(d="";40>a;)d+=(k[a>>3]>>4*(7-a++%8)&15).toString(16);return d};
+
+    function selectText(el) {
+      if (document.selection) {
+        var range = document.body.createTextRange();
+        range.moveToElementText(el);
+        range.select();
+      } else if (window.getSelection) {
+        var range = document.createRange();
+        range.selectNode(el);
+        window.getSelection().addRange(range);
+      }
+    }
+
+    var exec = node ? require('child_process').exec : function(){};
+
+    var srv = document.getElementById('srv');
+    var pw = document.getElementById('pw');
+    var password = document.getElementById('password');
+    var key = document.getElementById('key');
+    
+    var fileKey = '';
+
+    var update = function() {
+      var service = srv.value.toLowerCase().replace(/ /g, '');
+      var pass = pw.value;
+
+      var word = sha1(service + '||' + pass + '||' + fileKey);
+
+      // so we have some uppercase letters, replace even index chars with uppercase
+      word = word.replace(/[A-z]/g, function(c, i) {
+        return i % 2 === 0 ?
+          c.toUpperCase() :
+          c;
+      });
+
+      password.innerText = word;
+    };
+
+    srv.onkeyup = update;
+    pw.onkeyup = update;
+
+    password.onclick = function(e) {
+      selectText(password);
+    }
+  </script>
+
+</body>
+</html>
