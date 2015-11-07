@@ -2,6 +2,7 @@
 
 - Static website for PW - http://pwapp.io/.
 - iOS App at: https://itunes.apple.com/app/apple-store/id981716752?pt=117760826&ct=GitHub&mt=8 and also on GitHub at: https://github.com/hughhopkins/PW-iOS.
+- OS X app at: https://itunes.apple.com/gb/app/pw/id1052922320?mt=12 and also on GitHub at: https://github.com/hughhopkins/PW-OSX
 
 ## Credits
 
