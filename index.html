@@ -46,8 +46,11 @@
         <input type="text" id="srv" placeholder="Service" class="big">
         <input type="password" id="pw" placeholder="Password" class="big">
         <h4><p><span id="password"></span></p></h4>
+        <h4><span id = "passwordShorterPW"></span></h4>
         <button class="btn" data-clipboard-target="#password">Copy
-  </button> 
+        </button> 
+        <button class="btn" data-clipboard-target="#passwordShorterPW">Copy 15 Character PW
+        </button> 
       </div>
     </div>
     <footer class="footer">
@@ -58,7 +61,7 @@
 
       <a href="https://itunes.apple.com/gb/app/pw/id1052922320?mt=12" target="_blank"><img src="images/Download_on_the_Mac_App_Store_Badge_US-UK_165x40.svg"/></a>
 
-      <a href="https://play.google.com/store/apps/details?id=io.pwapp.pw19&utm_source=global_co&utm_medium=prtnr&utm_content=Mar2515&utm_campaign=PartBadge&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1" target="_blank"><img class="logoGooglePlay" alt="Get it on Google Play" src="https://play.google.com/intl/en_gb/badges/images/badge_new.png"/></a>
+      <a href="https://play.google.com/store/apps/details?id=io.pwapp.pw19&utm_source=global_co&utm_medium=prtnr&utm_content=Mar2515&utm_campaign=PartBadge&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1" target="_blank"><img class="logoGooglePlay" alt="Get it on Google Play" src="images/google-play-badge.png" ></a>
     </p>
     </footer>
   </div>
@@ -100,6 +103,7 @@
     var pw = document.getElementById('pw');
     var password = document.getElementById('password');
     var key = document.getElementById('key');
+    var passwordShorterPW = document.getElementById('passwordShorterPW');
     
     var fileKey = '';
 
@@ -117,6 +121,12 @@
       });
 
       password.innerText = word;
+
+      var shorterPW = word.substring(0,15);
+      console.log("shorterPW = " + shorterPW);
+
+      passwordShorterPW.innerText = shorterPW;
+
     };
 
     srv.onkeyup = update;
